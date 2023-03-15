@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:luckyman_managers_app/Controllers/booking_controller.dart';
 import 'package:luckyman_managers_app/Model/filter_data_from_db.dart';
-import 'package:luckyman_managers_app/Model/filter_widget.dart';
 
 class MyCustomUI extends StatefulWidget {
   const MyCustomUI({super.key});
@@ -63,13 +62,13 @@ class _MyCustomUIState extends State<MyCustomUI> {
     super.initState();
   }
 
-  Stream<QuerySnapshot> _usersStream(String destination) {
-    return _db
-        .collection('Users')
-        .where("selectedDestination", isEqualTo: destination)
-        .orderBy("fullName")
-        .snapshots();
-  }
+  // Stream<QuerySnapshot> _usersStream(String destination) {
+  //   return _db
+  //       .collection('Users')
+  //       .where("selectedDestination", isEqualTo: destination)
+  //       .orderBy("fullName")
+  //       .snapshots();
+  // }
 
   final Stream<QuerySnapshot> bookingStream = FirebaseFirestore.instance
       .collectionGroup("Booking Info")
@@ -174,14 +173,15 @@ class _MyCustomUIState extends State<MyCustomUI> {
                         Icons.search,
                         color: Colors.lightBlue,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+
+                      },
                     ),
                     AppBarIcons(
                       icon: Icons.filter_list_rounded,
                       toolTip: "Filter",
                       onPressed: () {
-                        Get.bottomSheet(FilterWidget(),
-                            backgroundColor: Colors.white);
+                       
                       },
                     ),
                     AppBarIcons(

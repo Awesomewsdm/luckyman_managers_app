@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luckyman_managers_app/Controllers/booking_controller.dart';
+import 'package:luckyman_managers_app/Screens/homescreen2.dart';
 
 import 'dropdown_widget.dart';
+import 'filter_data_from_db.dart';
 
 class FilterWidget extends StatelessWidget {
   FilterWidget({Key? key}) : super(key: key);
@@ -13,6 +15,11 @@ class FilterWidget extends StatelessWidget {
   final List<String> busType = [
     'VIP',
     'STC',
+  ];
+
+  final List<String> busClass = [
+    'Economy',
+    'Executive',
   ];
 
   @override
@@ -29,8 +36,8 @@ class FilterWidget extends StatelessWidget {
                   key: _formKey,
                   child: SingleChildScrollView(
                     child: SizedBox(
-                      height: size.height * 0.8,
-                      width: size.width * 0.85,
+                      height: size.height,
+                      width: size.width,
                       child: Column(
                         children: [
                           BookingDropdownMenu(
@@ -90,6 +97,22 @@ class FilterWidget extends StatelessWidget {
                               }
                             },
                             onChanged: (value) {
+                              busBookingController.selectedBusClass.value =
+                                  value!;
+                            },
+                            items: busClass,
+                            formLabel: 'Select Bus Class',
+                            dropdownTitle: 'Bus Class',
+                          ),
+                          BookingDropdownMenu(
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Please select one option';
+                              } else {
+                                return null;
+                              }
+                            },
+                            onChanged: (value) {
                               busBookingController.selectedDepatureDate.value =
                                   value!;
                             },
@@ -135,7 +158,25 @@ class FilterWidget extends StatelessWidget {
                           SizedBox(
                             width: MediaQuery.of(context).size.width,
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  // FilterDataFromDB(
+                                  //         label,
+                                  //         busBookingController
+                                  //             .selectedBusClass.value,
+                                  //         busBookingController
+                                  //             .selectedBusType.value,
+                                  //         busBookingController
+                                  //             .selectedDepatureTime.value,
+                                  //         busBookingController
+                                  //             .selectedDepatureTime.value,
+                                  //         busBookingController
+                                  //             .selectedPickupPoint.value)
+                                  //     .getDataFromDB();
+                                  _formKey.currentState!.save();
+                                  Get.to(() => const MyCustomUI());
+                                }
+                              },
                               style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.resolveWith((states) {

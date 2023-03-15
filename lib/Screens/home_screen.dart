@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:luckyman_managers_app/Model/filter_widget.dart';
 
 void main() async {
   runApp(const TestWidget());
@@ -14,13 +15,19 @@ class _TestWidgetState extends State<TestWidget> {
   @override
   void initState() {
     super.initState();
-    
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.green,
+    var size = MediaQuery.of(context).size;
+
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text('Filter Data'),
+      ),
+      body: SizedBox(
+          height: size.height, width: size.width, child: FilterWidget()),
     );
   }
 }
