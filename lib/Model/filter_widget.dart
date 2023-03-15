@@ -18,8 +18,8 @@ class FilterWidget extends StatelessWidget {
   ];
 
   final List<String> busClass = [
-    'Economy',
-    'Executive',
+    'ECONOMY',
+    'EXECUTIVE',
   ];
 
   @override
