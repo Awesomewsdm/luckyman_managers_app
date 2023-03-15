@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.luckyman_managers_app">
    <application
-        android:label="luckyman_managers_app"
+        android:label="LuckyMan Booking Manager"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
