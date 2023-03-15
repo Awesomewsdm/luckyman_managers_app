@@ -1,7 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:luckyman_managers_app/constants/colors.dart';
 import 'text_style.dart';
-
 
 class BookingDropdownMenu extends StatelessWidget {
   const BookingDropdownMenu({
@@ -35,7 +35,7 @@ class BookingDropdownMenu extends StatelessWidget {
           AshTextWidget(
             text: '$dropdownTitle :',
             fontWeight: FontWeight.w700,
-          ),   
+          ),
           // Text(
           //   dropdownTitle,
           //   style:  TextStyle(fontWeight: FontWeight.w700,  color: Colors.lightBlue.shade50,),
@@ -46,10 +46,12 @@ class BookingDropdownMenu extends StatelessWidget {
           DropdownButtonFormField2(
             key: formKey,
             // buttonWidth: buttonWidth,
-            buttonStyleData: ButtonStyleData(decoration: BoxDecoration(
+            buttonStyleData: ButtonStyleData(
+              decoration: BoxDecoration(
                 color: backgroundColor5,
-                borderRadius: BorderRadius.circular(10)),
-            
+                borderRadius: BorderRadius.circular(10),
+              ),
+
               //Add more decoration as you want here
             ),
             isExpanded: true,
@@ -57,16 +59,7 @@ class BookingDropdownMenu extends StatelessWidget {
               formLabel,
               style: const TextStyle(fontSize: 14),
             ),
-            icon: const Icon(
-              Icons.arrow_drop_down,
-              color: Colors.black45,
-            ),
-            iconSize: 30,
-            buttonHeight: 45,
-            buttonPadding: const EdgeInsets.only(left: 10, right: 10),
-            dropdownDecoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
+
             items: items
                 .map(
                   (item) => DropdownMenuItem<String>(

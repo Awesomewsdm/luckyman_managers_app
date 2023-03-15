@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class BusBookingController extends GetxController {
   static BusBookingController get instance => Get.find();
   final _db = FirebaseFirestore.instance;
@@ -14,6 +13,7 @@ class BusBookingController extends GetxController {
   final selectedDepatureDate = ''.obs;
   final selectedPickupPoint = ''.obs;
   final selectedSchool = ''.obs;
+  final selectedBusClass = "".obs;
 
   final agentName = TextEditingController();
 
@@ -53,5 +53,4 @@ class BusBookingController extends GetxController {
         .doc(docID)
         .get();
   }
-  
 }

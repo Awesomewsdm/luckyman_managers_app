@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:luckyman_managers_app/Controllers/booking_controller.dart';
+import 'package:luckyman_managers_app/Model/filter_data_from_db.dart';
 import 'package:luckyman_managers_app/Model/filter_widget.dart';
 
 class MyCustomUI extends StatefulWidget {
@@ -53,12 +55,12 @@ class _MyCustomUIState extends State<MyCustomUI> {
   //     }
   //   });
 
- 
+  final BusBookingController busBookingController =
+      Get.put(BusBookingController());
 
   @override
   void initState() {
     super.initState();
-   
   }
 
   Stream<QuerySnapshot> _usersStream(String destination) {
@@ -81,7 +83,7 @@ class _MyCustomUIState extends State<MyCustomUI> {
     return DefaultTabController(
       length: tabs.length,
       child: Scaffold(
-        backgroundColor: const Color(0xffF8F9FB),
+        backgroundColor: Colors.white,
         body: SafeArea(
           child: NestedScrollView(
             floatHeaderSlivers: true,
@@ -178,8 +180,7 @@ class _MyCustomUIState extends State<MyCustomUI> {
                       icon: Icons.filter_list_rounded,
                       toolTip: "Filter",
                       onPressed: () {
-                        Get.bottomSheet(
-                            FilterWidget(),
+                        Get.bottomSheet(FilterWidget(),
                             backgroundColor: Colors.white);
                       },
                     ),
@@ -208,7 +209,14 @@ class _MyCustomUIState extends State<MyCustomUI> {
               final String label = tab.text!;
               print(label);
               return StreamBuilder<QuerySnapshot>(
-                  stream: _usersStream(label),
+                  stream: FilterDataFromDB(
+                          label,
+                          busBookingController.selectedBusClass.value,
+                          busBookingController.selectedBusType.value,
+                          busBookingController.selectedDepatureTime.value,
+                          busBookingController.selectedDepatureTime.value,
+                          busBookingController.selectedPickupPoint.value)
+                      .getDataFromDB(),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return const Center(child: Text('Something went wrong'));
@@ -369,7 +377,6 @@ Widget cardWidget(
                   BoxShadow(
                       color: Colors.black.withOpacity(.1), blurRadius: 30),
                 ],
-               
               ),
               child: const Center(
                 child: Text(
@@ -383,8 +390,6 @@ Widget cardWidget(
     ),
   );
 }
-
-
 
 const List<Tab> tabs = [
   Tab(

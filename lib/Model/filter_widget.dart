@@ -5,15 +5,15 @@ import 'package:luckyman_managers_app/Controllers/booking_controller.dart';
 import 'dropdown_widget.dart';
 
 class FilterWidget extends StatelessWidget {
-   FilterWidget({Key? key}) : super(key: key);
-   final BusBookingController busBookingController =
+  FilterWidget({Key? key}) : super(key: key);
+  final BusBookingController busBookingController =
       Get.put(BusBookingController());
 
   final _formKey = GlobalKey<FormState>();
   final List<String> busType = [
-  'VIP',
-  'STC',
-];
+    'VIP',
+    'STC',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +90,8 @@ class FilterWidget extends StatelessWidget {
                               }
                             },
                             onChanged: (value) {
-                              busBookingController
-                                  .selectedDepatureDate.value = value!;
+                              busBookingController.selectedDepatureDate.value =
+                                  value!;
                             },
                             items: snapshot.data!["Departure Dates"],
                             formLabel: 'Select Depature Date',
@@ -106,8 +106,8 @@ class FilterWidget extends StatelessWidget {
                               }
                             },
                             onChanged: (value) {
-                              busBookingController
-                                  .selectedDepatureTime.value = value!;
+                              busBookingController.selectedDepatureTime.value =
+                                  value!;
                             },
                             items: snapshot.data!["Departure Times"],
                             formLabel: 'Select Depature Time',
@@ -132,10 +132,34 @@ class FilterWidget extends StatelessWidget {
                           const SizedBox(
                             height: 10.0,
                           ),
-                          const Text(
-                            'Leave blank if you don\'t have any agent',
-                            style: TextStyle(
-                              color: Colors.redAccent,
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: TextButton(
+                              onPressed: () {},
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.resolveWith((states) {
+                                  // If the button is pressed, return green, otherwise blue
+                                  if (states.contains(MaterialState.pressed)) {
+                                    return Colors.green;
+                                  }
+                                  return Colors.blue;
+                                }),
+                                textStyle:
+                                    MaterialStateProperty.resolveWith((states) {
+                                  // If the button is pressed, return size 40, otherwise 20
+                                  if (states.contains(MaterialState.pressed)) {
+                                    return const TextStyle(
+                                        fontSize: 40, color: Colors.white);
+                                  }
+                                  return const TextStyle(
+                                      fontSize: 20, color: Colors.white);
+                                }),
+                              ),
+                              child: const Text(
+                                "Proceed",
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                           const SizedBox(height: 2.0),

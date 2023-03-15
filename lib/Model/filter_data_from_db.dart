@@ -17,26 +17,18 @@ class FilterDataFromDB {
       this.selectedDepartureDate,
       this.selectedPickupPoint);
 
-  doAsyncWork() async {
-    print('Calling initializeApp()');
-    await Firebase.initializeApp();
-    try {
-      print('Querying collection group B');
-      QuerySnapshot qSnap = await FirebaseFirestore.instance
-          .collectionGroup("Booking Info")
-          .where("selectedDestination", isEqualTo: selectedDestination)
-          .where("selectedBusClass", isEqualTo: selectedBusClass)
-          .where("selectedBusType", isEqualTo: selectedBusType)
-          .where("selectedDepartureTime", isEqualTo: selectedDepartureTime)
-          .where("selectedDepartureDate", isEqualTo: selectedDepartureDate)
-          .where("selectedPickupPoint", isEqualTo: selectedPickupPoint)
-          .get();
-      for (var element in qSnap.docs) {
-        print('Collection group element: ${element.data().toString()}');
-      }
-    } catch (e) {
-      print(e);
-    }
-    print('Complete!');
+  Stream<QuerySnapshot> getDataFromDB() {
+    Stream<QuerySnapshot> qSnap = FirebaseFirestore.instance
+        .collectionGroup("Booking Info")
+        .where("selectedDestination", isEqualTo: selectedDestination)
+        .where("selectedBusClass", isEqualTo: selectedBusClass)
+        .where("selectedBusType", isEqualTo: selectedBusType)
+        .where("selectedDepartureTime", isEqualTo: selectedDepartureTime)
+        .where("selectedDepartureDate", isEqualTo: selectedDepartureDate)
+        .where("selectedPickupPoint", isEqualTo: selectedPickupPoint)
+        .orderBy("fullName")
+        .snapshots();
+
+    return qSnap;
   }
 }
