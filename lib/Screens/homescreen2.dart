@@ -17,12 +17,6 @@ class MyCustomUI extends StatefulWidget {
 class _MyCustomUIState extends State<MyCustomUI> {
   String _scanBarcode = 'Unknown';
 
-  Future<void> startBarcodeScanStream() async {
-    FlutterBarcodeScanner.getBarcodeStreamReceiver(
-            '#ff6666', 'Cancel', true, ScanMode.QR)!
-        .listen((barcode) => print(barcode));
-  }
-
   Future<void> scanQR() async {
     String barcodeScanRes;
     // Platform messages may fail, so we use a try/catch PlatformException.
@@ -61,19 +55,6 @@ class _MyCustomUIState extends State<MyCustomUI> {
   void initState() {
     super.initState();
   }
-
-  // Stream<QuerySnapshot> _usersStream(String destination) {
-  //   return _db
-  //       .collection('Users')
-  //       .where("selectedDestination", isEqualTo: destination)
-  //       .orderBy("fullName")
-  //       .snapshots();
-  // }
-
-  final Stream<QuerySnapshot> bookingStream = FirebaseFirestore.instance
-      .collectionGroup("Booking Info")
-      .where("selectedDestination", isEqualTo: "Accra")
-      .snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -173,16 +154,12 @@ class _MyCustomUIState extends State<MyCustomUI> {
                         Icons.search,
                         color: Colors.lightBlue,
                       ),
-                      onPressed: () {
-
-                      },
+                      onPressed: () {},
                     ),
                     AppBarIcons(
                       icon: Icons.filter_list_rounded,
                       toolTip: "Filter",
-                      onPressed: () {
-                       
-                      },
+                      onPressed: () {},
                     ),
                     AppBarIcons(
                       icon: Icons.more_vert_rounded,
@@ -207,9 +184,16 @@ class _MyCustomUIState extends State<MyCustomUI> {
             body: TabBarView(
                 children: tabs.map((Tab tab) {
               final String label = tab.text!;
-             
+
               return StreamBuilder<QuerySnapshot>(
-                  stream: bookingStream,
+                  stream: FilterDataFromDB(
+                          label,
+                          busBookingController.selectedBusClass.value,
+                          busBookingController.selectedBusType.value,
+                          busBookingController.selectedDepatureTime.value,
+                          busBookingController.selectedDepatureDate.value,
+                          busBookingController.selectedPickupPoint.value)
+                      .getDataFromDB(),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return const Center(child: Text('Something went wrong'));
@@ -223,9 +207,10 @@ class _MyCustomUIState extends State<MyCustomUI> {
                               Map<String, dynamic> data =
                                   document.data()! as Map<String, dynamic>;
                               return ListTile(
+                                contentPadding: const EdgeInsets.all(8.0),
                                 shape: RoundedRectangleBorder(
                                     side: BorderSide(
-                                        width: 1,
+                                        width: 3,
                                         color: Colors.blue.withOpacity(0.1)),
                                     borderRadius: BorderRadius.circular(10.0)),
                                 tileColor: Colors.blue.withOpacity(0.1),
@@ -234,7 +219,7 @@ class _MyCustomUIState extends State<MyCustomUI> {
                                       .nextInt(Colors.primaries.length)],
                                   child: const Icon(Icons.person_2_outlined),
                                 ),
-                                title: Text(data['fullName']),
+                                title: Text(data['userName']),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [

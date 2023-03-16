@@ -17,34 +17,7 @@ class BusBookingController extends GetxController {
 
   final agentName = TextEditingController();
 
-  Future<void> addSeatListToDB(
-      List<dynamic> seatList, String destination, String docRef) async {
-    await _db
-        .collection("Booking Data")
-        .doc(docRef)
-        .update({
-          destination: FieldValue.arrayUnion(seatList),
-        })
-        .whenComplete(
-          () => Get.snackbar(
-            "Success",
-            'Seat Added',
-            snackPosition: SnackPosition.BOTTOM,
-            colorText: const Color.fromARGB(255, 15, 32, 46),
-            backgroundColor: Colors.blue.withOpacity(0.7),
-          ),
-        )
-        // ignore: body_might_complete_normally_catch_error
-        .catchError((error, stackTrace) {
-          Get.snackbar(
-            "Error",
-            'Sorry, something went wrong',
-            snackPosition: SnackPosition.BOTTOM,
-            colorText: Colors.red,
-            backgroundColor: Colors.blue.withOpacity(0.7),
-          );
-        });
-  }
+  final isDataFiltered = false.obs;
 
   Future<DocumentSnapshot<Map<String, dynamic>>> getBookingMenuItems(
       String docID) async {

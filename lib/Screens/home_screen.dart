@@ -26,8 +26,7 @@ class _TestWidgetState extends State<TestWidget> {
         centerTitle: true,
         title: const Text('Filter Data'),
       ),
-      body: SizedBox(
-          height: size.height, width: size.width, child: FilterWidget()),
+      body: SafeArea(child: FilterWidget()),
     );
   }
 }

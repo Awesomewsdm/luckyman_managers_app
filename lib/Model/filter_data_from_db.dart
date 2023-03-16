@@ -23,10 +23,10 @@ class FilterDataFromDB {
         .where("selectedDestination", isEqualTo: selectedDestination)
         .where("selectedBusClass", isEqualTo: selectedBusClass)
         .where("selectedBusType", isEqualTo: selectedBusType)
-        .where("selectedDepartureTime", isEqualTo: selectedDepartureTime)
-        .where("selectedDepartureDate", isEqualTo: selectedDepartureDate)
+        .where("selectedDepatureTime", isEqualTo: selectedDepartureTime)
+        .where("selectedDepatureDate", isEqualTo: selectedDepartureDate)
         .where("selectedPickupPoint", isEqualTo: selectedPickupPoint)
-        .orderBy("fullName")
+        .orderBy("userName")
         .snapshots();
 
     return qSnap;
