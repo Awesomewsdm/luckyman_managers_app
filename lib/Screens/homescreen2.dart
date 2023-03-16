@@ -232,7 +232,12 @@ class _MyCustomUIState extends State<MyCustomUI> {
                                     const SizedBox(
                                       height: 7.0,
                                     ),
-                                    Text(data["selectedBusClass"]),
+                                    Row(
+                                      children: [
+                                        Text(data["selectedBusClass"]),
+                                        Text(data["selectedBusType"]),
+                                      ],
+                                    ),
                                   ],
                                 ),
                                 trailing: const CircleAvatar(
