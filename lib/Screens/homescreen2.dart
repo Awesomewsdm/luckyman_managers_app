@@ -207,16 +207,9 @@ class _MyCustomUIState extends State<MyCustomUI> {
             body: TabBarView(
                 children: tabs.map((Tab tab) {
               final String label = tab.text!;
-              print(label);
+             
               return StreamBuilder<QuerySnapshot>(
-                  stream: FilterDataFromDB(
-                          label,
-                          busBookingController.selectedBusClass.value,
-                          busBookingController.selectedBusType.value,
-                          busBookingController.selectedDepatureTime.value,
-                          busBookingController.selectedDepatureTime.value,
-                          busBookingController.selectedPickupPoint.value)
-                      .getDataFromDB(),
+                  stream: bookingStream,
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return const Center(child: Text('Something went wrong'));
