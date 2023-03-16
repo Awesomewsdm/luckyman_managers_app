@@ -233,8 +233,13 @@ class _MyCustomUIState extends State<MyCustomUI> {
                                       height: 7.0,
                                     ),
                                     Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
                                         Text(data["selectedBusClass"]),
+                                        const SizedBox(
+                                          width: 10.0,
+                                        ),
                                         Text(data["selectedBusType"]),
                                       ],
                                     ),
