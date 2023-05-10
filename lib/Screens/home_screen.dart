@@ -11,6 +11,7 @@ class TestWidget extends StatefulWidget {
   State<TestWidget> createState() => _TestWidgetState();
 }
 
+
 class _TestWidgetState extends State<TestWidget> {
   @override
   void initState() {
@@ -19,12 +20,12 @@ class _TestWidgetState extends State<TestWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Filter Data'),
+        // actions: [IconButton(onPressed: () => const SimplifiedBookingData(), icon: const Icon(Icons.description_rounded))],
       ),
       body: SafeArea(child: FilterWidget()),
     );

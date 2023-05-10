@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 class BusBookingController extends GetxController {
   static BusBookingController get instance => Get.find();
-  final _db = FirebaseFirestore.instance;
+ 
 
   final selectedDestination = ''.obs;
   final selectedBusType = ''.obs;
@@ -14,6 +14,8 @@ class BusBookingController extends GetxController {
   final selectedPickupPoint = ''.obs;
   final selectedSchool = ''.obs;
   final selectedBusClass = "".obs;
+  final qrcodeResults = "".obs;
+
 
   final agentName = TextEditingController();
 

@@ -22,3 +22,32 @@ class AshTextWidget extends StatelessWidget {
     );
   }
 }
+
+
+class BlackTextWidget extends StatelessWidget {
+  const BlackTextWidget({
+    Key? key,
+    required this.text,
+    this.fontSize,
+    this.color = const Color(0xFF000000),
+  }) : super(key: key);
+  final String text;
+  final double? fontSize;
+  final Color? color;
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: Text(
+        text,
+        textDirection: TextDirection.ltr,
+        style: TextStyle(
+          color: color,
+          fontSize: fontSize,
+          fontFamily: 'Roboto',
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    );
+  }
+
+}

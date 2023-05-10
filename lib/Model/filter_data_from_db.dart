@@ -1,21 +1,23 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class FilterDataFromDB {
-  final String selectedDestination;
-  final String selectedBusClass;
-  final String selectedBusType;
-  final String selectedDepartureTime;
-  final String selectedDepartureDate;
-  final String selectedPickupPoint;
-
-  FilterDataFromDB(
-      this.selectedDestination,
-      this.selectedBusClass,
-      this.selectedBusType,
-      this.selectedDepartureTime,
-      this.selectedDepartureDate,
-      this.selectedPickupPoint);
+  final String? selectedDestination;
+  final String? selectedBusClass;
+  final String? selectedBusType;
+  final String? selectedDepartureTime;
+  final String? selectedDepartureDate;
+  final String? selectedPickupPoint;
+  // final String selectedSeatNo;
+  FilterDataFromDB({
+    this.selectedDestination,
+    this.selectedBusClass,
+    this.selectedBusType,
+    this.selectedDepartureTime,
+    this.selectedDepartureDate,
+    this.selectedPickupPoint,
+    // this.selectedSeatNo,
+  });
 
   Stream<QuerySnapshot> getDataFromDB() {
     Stream<QuerySnapshot> qSnap = FirebaseFirestore.instance
@@ -31,4 +33,19 @@ class FilterDataFromDB {
 
     return qSnap;
   }
+
+  Stream<QuerySnapshot> getSimplidiedFilterDataFromDB() {
+    var db = FirebaseFirestore.instance;
+
+    var qSnap = db
+        .collectionGroup("Booking Info")
+        .where("selectedDepatureDate", isEqualTo: selectedDepartureDate)
+        .where("selectedSeatNo", isNotEqualTo: null)
+        .where("selectedDestination", isEqualTo: selectedDestination)
+        .orderBy("userName")
+        .snapshots();
+
+    return qSnap;
+  }
 }
+        // .where("isUserBookingComplete", isEqualTo: true)

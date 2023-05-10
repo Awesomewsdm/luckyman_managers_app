@@ -1,8 +1,7 @@
-
-// 
-// 
-// 
-// 
+//
+//
+//
+//
 // StreamBuilder<QuerySnapshot>(
 //                   stream: _usersStream,
 //                   builder: (BuildContext context,
@@ -42,7 +41,6 @@
 //                   },
 //                 ),
 
-
 // StreamBuilder<QuerySnapshot>(
 //                   stream: _usersStream,
 //                   builder: (BuildContext context,
@@ -82,57 +80,77 @@
 //                   },
 //                 ),
 
-  // StreamBuilder<QuerySnapshot>(
-  //                 stream: bookingStrem,
-  //                 builder: (BuildContext context,
-  //                     AsyncSnapshot<QuerySnapshot> snapshot) {
-  //                   if (snapshot.hasError) {
-  //                     return const Center(child: Text('Something went wrong'));
-  //                   }
-  //                   if (snapshot.connectionState == ConnectionState.waiting) {
-  //                     return const Center(child: Text("Loading..."));
-  //                   }
+// StreamBuilder<QuerySnapshot>(
+//                 stream: bookingStrem,
+//                 builder: (BuildContext context,
+//                     AsyncSnapshot<QuerySnapshot> snapshot) {
+//                   if (snapshot.hasError) {
+//                     return const Center(child: Text('Something went wrong'));
+//                   }
+//                   if (snapshot.connectionState == ConnectionState.waiting) {
+//                     return const Center(child: Text("Loading..."));
+//                   }
 
-  //                   return ListView.builder(
-  //                       itemCount: snapshot.data!.docs.length,
-  //                       itemBuilder: (BuildContext context, int index) {
-  //                         var userName = snapshot.data!.docs[index]["selectedDestination"];
-  //                         var userSelectedSeatNo = snapshot.data!.docs[index];
+//                   return ListView.builder(
+//                       itemCount: snapshot.data!.docs.length,
+//                       itemBuilder: (BuildContext context, int index) {
+//                         var userName = snapshot.data!.docs[index]["selectedDestination"];
+//                         var userSelectedSeatNo = snapshot.data!.docs[index];
 
-  //                         return ListTile(
-  //                           leading: CircleAvatar(
-  //                             backgroundColor: Colors.primaries[
-  //                                 Random().nextInt(Colors.primaries.length)],
-  //                             child: Text("${index + 1}"),
-  //                           ),
-  //                           title: Text(userName),
-  //                           subtitle: FutureBuilder(
-  //                             future: getBookingMenuItems(),
-  //                             builder: (BuildContext context,
-  //                                 AsyncSnapshot<dynamic> snapshot) {
-  //                               if (snapshot.connectionState ==
-  //                                   ConnectionState.done) {
-  //                                 if (snapshot.hasData) {
-  //                                   return Text(snapshot
-  //                                               .data["selectedSeatNo"] ==
-  //                                           null
-  //                                       ? "No seat booked"
-  //                                       : 'Seat No: ${snapshot.data["selectedSeatNo"]}');
-  //                                 } else {
-  //                                   return const Text("No data available");
-  //                                 }
-  //                               } else {
-  //                                 return const Text(
-  //                                     "Loading seat information...");
-  //                               }
-  //                             },
-  //                           ),
-  //                           trailing: RoundCheckBox(
-  //                             uncheckedColor: Colors.red,
-  //                             uncheckedWidget: const Icon(Icons.close),
-  //                             onTap: (selected) {},
-  //                           ),
-  //                         );
-  //                       });
-  //                 },
-  //               ),
+//                         return ListTile(
+//                           leading: CircleAvatar(
+//                             backgroundColor: Colors.primaries[
+//                                 Random().nextInt(Colors.primaries.length)],
+//                             child: Text("${index + 1}"),
+//                           ),
+//                           title: Text(userName),
+//                           subtitle: FutureBuilder(
+//                             future: getBookingMenuItems(),
+//                             builder: (BuildContext context,
+//                                 AsyncSnapshot<dynamic> snapshot) {
+//                               if (snapshot.connectionState ==
+//                                   ConnectionState.done) {
+//                                 if (snapshot.hasData) {
+//                                   return Text(snapshot
+//                                               .data["selectedSeatNo"] ==
+//                                           null
+//                                       ? "No seat booked"
+//                                       : 'Seat No: ${snapshot.data["selectedSeatNo"]}');
+//                                 } else {
+//                                   return const Text("No data available");
+//                                 }
+//                               } else {
+//                                 return const Text(
+//                                     "Loading seat information...");
+//                               }
+//                             },
+//                           ),
+//                           trailing: RoundCheckBox(
+//                             uncheckedColor: Colors.red,
+//                             uncheckedWidget: const Icon(Icons.close),
+//                             onTap: (selected) {},
+//                           ),
+//                         );
+//                       });
+//                 },
+//               ),
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+void main() {
+  var db = FirebaseFirestore.instance;
+
+  db
+      .collection("Booking Info")
+      .where("selectedDestination", isEqualTo: "Accra")
+      .get()
+      .then(
+    (querySnapshot) {
+      print("Successfully completed");
+      for (var docsnapshot in querySnapshot.docs) {
+        print("${docsnapshot.id} => ${docsnapshot.data()}");
+      }
+    },
+    onError: (e) => print("Error while fetching document"),
+  );
+}
