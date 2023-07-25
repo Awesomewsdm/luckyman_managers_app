@@ -26,7 +26,6 @@ class _BookingDataScreenState extends State<BookingDataScreen> {
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.QR);
-      print(barcodeScanRes);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -54,21 +53,18 @@ class _BookingDataScreenState extends State<BookingDataScreen> {
   final BusBookingController busBookingController =
       Get.put(BusBookingController());
 
- List<Map<String, dynamic>> users = [];
+  List<Map<String, dynamic>> users = [];
   @override
   void initState() {
     super.initState();
     // users =
-
   }
 
- void runFilter(String enteredKeyword) {
+  void runFilter(String enteredKeyword) {
     List<Map<String, dynamic>> results = [];
-    if (enteredKeyword.isEmpty){
-  
-      
-    }
+    if (enteredKeyword.isEmpty) {}
   }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -87,6 +83,8 @@ class _BookingDataScreenState extends State<BookingDataScreen> {
 
               return StreamBuilder<QuerySnapshot>(
                   stream: FilterDataFromDB(
+                          selectedOrigin:
+                              busBookingController.selectedOrigin.value,
                           selectedDestination: label,
                           selectedDepartureDate:
                               busBookingController.selectedDepatureDate.value)

@@ -38,11 +38,11 @@ class FilterWidget extends StatelessWidget {
                       children: [
                         BookingDropdownMenu(
                           onChanged: (value) {
-                            busBookingController.selectedSchool.value = value!;
+                            busBookingController.selectedOrigin.value = value!;
                           },
-                          items: snapshot.data!["Tertiary Schools"],
-                          formLabel: 'Select institution',
-                          dropdownTitle: 'Institution',
+                          items: snapshot.data!["Origin"],
+                          formLabel: 'Select origin',
+                          dropdownTitle: 'Origin',
                         ),
                         BookingDropdownMenu(
                           items: snapshot.data!["Destinations"],

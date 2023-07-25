@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:luckyman_managers_app/Model/filter_widget.dart';
 
-void main() async {
-  runApp(const TestWidget());
-}
-
-class TestWidget extends StatefulWidget {
-  const TestWidget({super.key});
+class FilterPage extends StatefulWidget {
+  const FilterPage({super.key});
   @override
-  State<TestWidget> createState() => _TestWidgetState();
+  State<FilterPage> createState() => _FilterPageState();
 }
 
-
-class _TestWidgetState extends State<TestWidget> {
+class _FilterPageState extends State<FilterPage> {
   @override
   void initState() {
     super.initState();
@@ -20,7 +15,6 @@ class _TestWidgetState extends State<TestWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

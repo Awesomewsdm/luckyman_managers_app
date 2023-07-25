@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:luckyman_managers_app/Model/appbar_widgets.dart';
 import 'package:luckyman_managers_app/Model/filter_widget.dart';
 import 'package:luckyman_managers_app/Screens/homescreen2.dart';
+import 'package:luckyman_managers_app/managers_app/all_buses_screen.dart';
 
 class DashboardAppBar extends StatelessWidget {
   const DashboardAppBar({
@@ -97,7 +98,9 @@ class DashboardAppBar extends StatelessWidget {
             Icons.search,
             color: Colors.lightBlue,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Get.to(() => const AllAvailableBuses());
+          },
         ),
         AppBarIcons(
           icon: Icons.filter_list_rounded,

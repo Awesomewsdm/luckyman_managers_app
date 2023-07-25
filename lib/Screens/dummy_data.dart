@@ -146,7 +146,6 @@ void main() {
       .get()
       .then(
     (querySnapshot) {
-      print("Successfully completed");
       for (var docsnapshot in querySnapshot.docs) {
         print("${docsnapshot.id} => ${docsnapshot.data()}");
       }

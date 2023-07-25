@@ -7,9 +7,12 @@ class FilterDataFromDB {
   final String? selectedBusType;
   final String? selectedDepartureTime;
   final String? selectedDepartureDate;
+  final String? selectedOrigin;
+
   final String? selectedPickupPoint;
   // final String selectedSeatNo;
   FilterDataFromDB({
+    this.selectedOrigin,
     this.selectedDestination,
     this.selectedBusClass,
     this.selectedBusType,
@@ -41,6 +44,7 @@ class FilterDataFromDB {
         .collectionGroup("Booking Info")
         .where("selectedDepatureDate", isEqualTo: selectedDepartureDate)
         .where("selectedSeatNo", isNotEqualTo: null)
+        .where("selectedOrigin", isEqualTo: selectedOrigin)
         .where("selectedDestination", isEqualTo: selectedDestination)
         .orderBy("userName")
         .snapshots();

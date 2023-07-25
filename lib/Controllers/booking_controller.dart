@@ -4,9 +4,10 @@ import 'package:get/get.dart';
 
 class BusBookingController extends GetxController {
   static BusBookingController get instance => Get.find();
- 
 
   final selectedDestination = ''.obs;
+  final selectedOrigin = ''.obs;
+
   final selectedBusType = ''.obs;
   final selectedInstitution = ''.obs;
   final selectedDepatureTime = ''.obs;
@@ -15,7 +16,6 @@ class BusBookingController extends GetxController {
   final selectedSchool = ''.obs;
   final selectedBusClass = "".obs;
   final qrcodeResults = "".obs;
-
 
   final agentName = TextEditingController();
 

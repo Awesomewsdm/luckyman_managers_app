@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:luckyman_managers_app/Screens/home_screen.dart';
+import 'package:luckyman_managers_app/managers_app/admin_dashboard.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -31,9 +31,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return  const GetMaterialApp(
+    return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: TestWidget(),
+      home: AdminDashboard(),
     );
   }
 }
