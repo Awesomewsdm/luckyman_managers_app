@@ -11,7 +11,8 @@ import 'package:luckyman_managers_app/Model/text_style.dart';
 import 'package:luckyman_managers_app/components/expansiontile_widget.dart';
 
 class BookingDataScreen extends StatefulWidget {
-  const BookingDataScreen({super.key});
+  const BookingDataScreen({super.key, required this.destinations});
+  final List destinations;
 
   @override
   State<BookingDataScreen> createState() => _BookingDataScreenState();
@@ -68,18 +69,18 @@ class _BookingDataScreenState extends State<BookingDataScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: tabs.length,
+      length: widget.destinations.length,
       child: Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
           child: NestedScrollView(
             floatHeaderSlivers: true,
             headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [const DashboardAppBar()];
+              return [DashboardAppBar(destinations: widget.destinations)];
             },
             body: TabBarView(
-                children: tabs.map((Tab tab) {
-              final String label = tab.text!;
+                children: widget.destinations.map((destination) {
+              final String label = destination;
 
               return StreamBuilder<QuerySnapshot>(
                   stream: FilterDataFromDB(
@@ -186,39 +187,3 @@ class _BookingDataScreenState extends State<BookingDataScreen> {
     );
   }
 }
-
-const List<Tab> tabs = [
-  Tab(
-    text: 'Accra',
-  ),
-  Tab(
-    text: 'Kasoa',
-  ),
-  Tab(
-    text: 'Takoradi',
-  ),
-  Tab(
-    text: 'Koforidua',
-  ),
-  Tab(
-    text: 'Tema',
-  ),
-  Tab(
-    text: 'Circle',
-  ),
-  Tab(
-    text: 'Spintex-Sakumono',
-  ),
-  Tab(
-    text: 'Tarkwa',
-  ),
-  Tab(
-    text: 'Madina',
-  ),
-  Tab(
-    text: 'Sunyani',
-  ),
-  Tab(
-    text: 'Cape Coast',
-  ),
-];

@@ -3,14 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:luckyman_managers_app/Model/appbar_widgets.dart';
 import 'package:luckyman_managers_app/Model/filter_widget.dart';
-import 'package:luckyman_managers_app/Screens/homescreen2.dart';
 import 'package:luckyman_managers_app/managers_app/all_buses_screen.dart';
 
 class DashboardAppBar extends StatelessWidget {
   const DashboardAppBar({
     super.key,
+    required this.destinations,
   });
-
+  final List destinations;
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -131,7 +131,11 @@ class DashboardAppBar extends StatelessWidget {
         unselectedLabelColor: Colors.black.withOpacity(.4),
         indicatorSize: TabBarIndicatorSize.label,
         labelColor: Colors.black.withOpacity(.8),
-        tabs: tabs,
+        tabs: destinations
+            .map((destination) => Tab(
+                  text: destination,
+                ))
+            .toList(),
       ),
       systemOverlayStyle: SystemUiOverlayStyle.dark,
     );

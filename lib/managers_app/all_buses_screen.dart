@@ -296,7 +296,7 @@ class _AllAvailableBusesState extends State<AllAvailableBuses> {
                                                   }
                                                 },
                                                 onChanged: (value) {
-                                                  busController.departureDate
+                                                  busController.departureTime
                                                       .value = value!;
                                                 },
                                                 items: snapshot
@@ -316,7 +316,7 @@ class _AllAvailableBusesState extends State<AllAvailableBuses> {
                                             }
                                           },
                                           onChanged: (value) {
-                                            busController.departureDate.value =
+                                            busController.pickupPoint.value =
                                                 value!;
                                           },
                                           items:
@@ -336,8 +336,8 @@ class _AllAvailableBusesState extends State<AllAvailableBuses> {
                                                   }
                                                 },
                                                 onChanged: (value) {
-                                                  busController.departureDate
-                                                      .value = value!;
+                                                  busController.busClass.value =
+                                                      value!;
                                                 },
                                                 items: busClass,
                                                 formLabel: "Bus Class",
@@ -357,8 +357,8 @@ class _AllAvailableBusesState extends State<AllAvailableBuses> {
                                                   }
                                                 },
                                                 onChanged: (value) {
-                                                  busController.departureDate
-                                                      .value = value!;
+                                                  busController.busType.value =
+                                                      value!;
                                                 },
                                                 items: busType,
                                                 formLabel: "Bus Type",

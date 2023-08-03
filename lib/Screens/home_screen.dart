@@ -21,7 +21,7 @@ class _FilterPageState extends State<FilterPage> {
         title: const Text('Filter Data'),
         // actions: [IconButton(onPressed: () => const SimplifiedBookingData(), icon: const Icon(Icons.description_rounded))],
       ),
-      body: SafeArea(child: FilterWidget()),
+      body: FilterWidget(),
     );
   }
 }

@@ -12,6 +12,7 @@ class BusBookingsScreen extends StatelessWidget {
 
     final busData = busSnapshot.data();
     final passengerNames = busData?['passengers'] ?? [];
+    final passengerSeatNo = busData?['passengers'] ?? [];
 
     return passengerNames;
   }
@@ -41,6 +42,7 @@ class BusBookingsScreen extends StatelessWidget {
                 return ListTile(
                   leading: const Icon(Icons.person),
                   title: Text(passengerName),
+                  trailing: Text(passengerName),
                 );
               },
             );
