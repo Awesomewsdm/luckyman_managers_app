@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:luckyman_managers_app/Model/text_style.dart';
 import 'package:luckyman_managers_app/Screens/home_screen.dart';
 import 'package:luckyman_managers_app/managers_app/add_general_bus_details.dart';
 import 'package:luckyman_managers_app/managers_app/all_buses_screen.dart';
-import 'package:luckyman_managers_app/managers_app/styles.dart';
 
 class AdminDashboard extends StatelessWidget {
   const AdminDashboard({Key? key}) : super(key: key);
@@ -13,91 +11,101 @@ class AdminDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const SizedBox(
-          height: 30.0,
-        ),
-        const Padding(
-          padding: EdgeInsets.only(left: 30.0, top: 30),
-          child: Text(
-            'Dashboard',
-            style: TextStyle(
-              fontSize: 30.0,
-              color: Colors.amber,
-              fontWeight: FontWeight.w700,
+      appBar: AppBar(
+        leading: const Icon(Icons.navigation),
+        title: const Text("Dashboard"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 10,
             ),
-          ),
-        ),
-        const SizedBox(
-          height: 10.0,
-        ),
-        Expanded(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.all(20.0),
-            height: MediaQuery.of(context).size.height,
-            decoration: kHomeBackgroundBoxDecoration,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const AshTextWidget(
-                  text: 'Welcome',
-                  fontSize: 18,
-                ),
-                const BlackTextWidget(
-                  text: "Admin",
-                  fontSize: 25,
-                  color: Colors.lightBlue,
-                ),
-                // const UserProfileImage(
-                //   width: 60,
-                //   height: 60,
-                // ),
-                const Divider(
-                  thickness: 0.5,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const BlackTextWidget(
-                  text: 'What would you like to do?',
-                  fontSize: 24,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                HomeCardWidget(
-                  onTap: () {
-                    Get.to(() => const AllAvailableBuses());
-                  },
-                  size: size,
-                  label: "View And Add New Buses",
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                HomeCardWidget(
-                  onTap: () {
-                    Get.to(() => const FilterPage());
-                  },
-                  size: size,
-                  label: "General Bookings",
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                HomeCardWidget(
-                  onTap: () {
-                    Get.to(() => const AddDetailsScreen());
-                  },
-                  size: size,
-                  label: "Update General Booking",
-                ),
-              ],
+            const Text(
+              "Hello, Admin",
+              style: TextStyle(
+                fontSize: 22,
+              ),
             ),
-          ),
-        )
-      ]),
+            const Text("Welocome back!"),
+            const SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                children: [
+                  HomeCardWidget(
+                    onTap: () {
+                      Get.to(
+                        () => const AllAvailableBuses(),
+                      );
+                    },
+                    size: size,
+                    label: "View And Add New Buses",
+                    number: "42",
+                  ),
+                  HomeCardWidget(
+                    onTap: () {
+                      Get.to(
+                        () => const FilterPage(),
+                      );
+                    },
+                    size: size,
+                    label: "All Bookings",
+                    number: "40",
+                  ),
+                  HomeCardWidget(
+                    onTap: () {
+                      Get.to(
+                        () => const AddDetailsScreen(),
+                      );
+                    },
+                    size: size,
+                    label: "Update Booking Details",
+                    number: "20",
+                  ),
+                  HomeCardWidget(
+                    onTap: () {
+                      // Get.to(
+                      //   () => const AllAvailableBuses(),
+                      // );
+                    },
+                    size: size,
+                    label: "Total Earnings",
+                    number: "35",
+                  ),
+                ],
+              ),
+            ),
+            // Row(
+            //   children: [
+            //     const Text(
+            //       "All Buses",
+            //       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            //     ),
+            //     const Spacer(),
+            //     TextButton(
+            //       onPressed: () {
+            //         Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //             builder: (context) => const AllAvailableBuses(),
+            //           ),
+            //         );
+            //       },
+            //       child: const Text(
+            //         "See all",
+            //         style: TextStyle(color: Colors.green),
+            //       ),
+            //     )
+            //   ],
+            // ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -107,11 +115,13 @@ class HomeCardWidget extends StatelessWidget {
     super.key,
     required this.size,
     required this.label,
+    required this.number,
     required this.onTap,
   });
 
   final Size size;
   final String label;
+  final String number;
   final void Function()? onTap;
 
   @override
@@ -119,7 +129,8 @@ class HomeCardWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         height: 80,
         width: size.width,
         decoration: BoxDecoration(
@@ -128,21 +139,37 @@ class HomeCardWidget extends StatelessWidget {
           ),
           border: Border.all(color: Colors.lightBlue),
         ),
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              BlackTextWidget(
-                text: label,
-                fontSize: 24,
-              ),
-              const Spacer(),
-              const Icon(
-                Icons.arrow_forward,
-                color: Colors.lightBlue,
-              )
-            ],
-          ),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  number,
+                  style: const TextStyle(
+                      color: Colors.lightBlue,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                ),
+                const Spacer(),
+                Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                      color: Colors.lightBlue.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(100)),
+                  child: const Icon(
+                    Icons.bus_alert,
+                    color: Colors.blue,
+                  ),
+                )
+              ],
+            ),
+            const Spacer(),
+            Text(
+              label,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
       ),
     );

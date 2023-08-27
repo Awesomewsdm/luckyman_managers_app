@@ -20,6 +20,21 @@ class AllAvailableBuses extends StatefulWidget {
 }
 
 class _AllAvailableBusesState extends State<AllAvailableBuses> {
+  final RxBool _isBottomSheetOpen = false.obs;
+
+  void _openBottomSheet() {
+    _isBottomSheetOpen.value = true;
+    Get.bottomSheet(
+      const BottomSheetWidget(),
+      isDismissible: false,
+    );
+  }
+
+  void _closeBottomSheet() {
+    _isBottomSheetOpen.value = false;
+    Get.back();
+  }
+
   final BusController busController = Get.put(BusController());
   final TextEditingController _searchController = TextEditingController();
   final CollectionReference _busesCollection =
@@ -550,6 +565,30 @@ class _AllAvailableBusesState extends State<AllAvailableBuses> {
                 ),
                 isScrollControlled: true);
           }),
+    );
+  }
+}
+
+class BottomSheetWidget extends StatelessWidget {
+  const BottomSheetWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text('Bottom Sheet Content'),
+          ElevatedButton(
+            onPressed: () {
+              Get.find<AllAvailableBuses>()._closeBottomSheet();
+            },
+            child: const Text('Close Bottom Sheet'),
+          ),
+        ],
+      ),
     );
   }
 }
