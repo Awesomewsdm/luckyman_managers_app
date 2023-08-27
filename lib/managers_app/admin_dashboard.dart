@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:luckyman_managers_app/Screens/home_screen.dart';
 import 'package:luckyman_managers_app/managers_app/add_general_bus_details.dart';
 import 'package:luckyman_managers_app/managers_app/all_buses_screen.dart';
+import 'package:luckyman_managers_app/managers_app/all_users.dart';
 
 class AdminDashboard extends StatelessWidget {
   const AdminDashboard({Key? key}) : super(key: key);
@@ -69,12 +70,12 @@ class AdminDashboard extends StatelessWidget {
                   ),
                   HomeCardWidget(
                     onTap: () {
-                      // Get.to(
-                      //   () => const AllAvailableBuses(),
-                      // );
+                      Get.to(
+                        () => const AllUsers(),
+                      );
                     },
                     size: size,
-                    label: "Total Earnings",
+                    label: "Users",
                     number: "35",
                   ),
                 ],

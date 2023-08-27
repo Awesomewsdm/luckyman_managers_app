@@ -9,6 +9,7 @@ import 'package:luckyman_managers_app/managers_app/bus_bookings_screen.dart';
 import 'package:luckyman_managers_app/managers_app/bus_card_widget.dart';
 import 'package:luckyman_managers_app/managers_app/bus_model.dart';
 import 'package:luckyman_managers_app/managers_app/controllers.dart';
+import 'package:luckyman_managers_app/managers_app/disable_seats.dart';
 
 class AllAvailableBuses extends StatefulWidget {
   const AllAvailableBuses({
@@ -152,8 +153,53 @@ class _AllAvailableBusesState extends State<AllAvailableBuses> {
                               busController.reference.value =
                                   buses.reference.id;
                               return BusInfoCard(
-                                onEdit: () => Get.to(() => BusBookingsScreen(
-                                    busId: buses.reference.id)),
+                                onEdit: () => Get.bottomSheet(
+                                  StatefulBuilder(
+                                    builder: (context, setState) =>
+                                        SingleChildScrollView(
+                                      child: Container(
+                                        height: 150,
+                                        color: Colors.white,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            children: [
+                                              const Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 120),
+                                                child: Divider(
+                                                  thickness: 5,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              TextButton(
+                                                onPressed: () {
+                                                  Get.to(
+                                                    () => SeatSelectionScreen(
+                                                      busSnapshot: buses,
+                                                    ),
+                                                  );
+                                                },
+                                                child: const Text(
+                                                    "Disable bus seats"),
+                                              ),
+                                              TextButton(
+                                                onPressed: () => Get.to(() =>
+                                                    BusBookingsScreen(
+                                                        busId: buses
+                                                            .reference.id)),
+                                                child: const Text(
+                                                    "View Passengers"),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                                 onDelete: () {
                                   showDialog(
                                     context: context,
@@ -583,7 +629,7 @@ class BottomSheetWidget extends StatelessWidget {
           const Text('Bottom Sheet Content'),
           ElevatedButton(
             onPressed: () {
-              Get.find<AllAvailableBuses>()._closeBottomSheet();
+              // Get.find<AllAvailableBuses>()._closeBottomSheet();
             },
             child: const Text('Close Bottom Sheet'),
           ),

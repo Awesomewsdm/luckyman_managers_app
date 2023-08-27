@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:luckyman_managers_app/Model/regex.dart';
 
 class BusBookingsScreen extends StatelessWidget {
   final String busId;
@@ -12,13 +13,13 @@ class BusBookingsScreen extends StatelessWidget {
 
     final busData = busSnapshot.data();
     final passengerNames = busData?['passengers'] ?? [];
-    final passengerSeatNo = busData?['passengers'] ?? [];
 
     return passengerNames;
   }
 
   @override
   Widget build(BuildContext context) {
+    // String adminText = extractAdminText(adminInput, input);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -38,11 +39,18 @@ class BusBookingsScreen extends StatelessWidget {
             return ListView.builder(
               itemCount: passengerNames.length,
               itemBuilder: (context, index) {
-                final passengerName = passengerNames[index] as String;
+                final passenger = passengerNames[index] as String;
+                final numbers = extractNumbers(passenger);
+                final passengerName = extractWords(passenger);
+
                 return ListTile(
                   leading: const Icon(Icons.person),
-                  title: Text(passengerName),
-                  trailing: Text(passengerName),
+                  title: Text(
+                    passenger.isNotEmpty ? passengerName.toString() : "",
+                  ),
+                  trailing: Text(
+                    numbers.isNotEmpty ? numbers.toString() : "",
+                  ),
                 );
               },
             );
